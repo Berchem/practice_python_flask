@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>via MySQL</title>
+    <script src="/static/js/plotly-latest.min.js"></script>
+</head>
+<body>
+
+
+    <div>
+        <h2>first plot</h2>
+            <button onclick="plot01('f1')">open</button>
+            <button onclick="plot02('f1')">close</button>
+            <button onclick="plot03('f1')">both</button>
+            <!--<button onclick="cleardata('f1')">clear</button>-->
+        <div id="f1"></div>
+    </div>
+
+</body>
+<script>
+        function plot02(id) {
+            var ele = document.getElementById(id)
+            var trace = []
+
+            trace[0] = {
+                x: {{ date|safe }},
+                y: {{ price_close }},
+                type: "scatter",
+                name: "close"
+            }
+
+            Plotly.plot(ele, trace)
+        }
+
+        function plot01(id) {
+            var ele = document.getElementById(id)
+            var trace = []
+
+            trace[0] = {
+                x: {{ date|safe }},
+                y: {{ price_open }},
+                type: "scatter",
+                name: "open"
+            }
+
+            Plotly.plot(ele, trace)
+        }
+
+        function plot03(id) {
+            var ele = document.getElementById(id)
+            var trace = []
+
+            trace[0] = {
+                x: {{ date|safe }},
+                y: {{ price_open }},
+                type: "scatter",
+                name: "open"
+            }
+
+            trace[1] = {
+                x: {{ date|safe }},
+                y: {{ price_close }},
+                type: "scatter",
+                name: "close",
+
+            }
+
+            var layout = {title: "open & close"}
+
+            Plotly.plot(ele, trace, layout)
+        }
+</script>
+</html>
